@@ -15,8 +15,16 @@ FROM node:20 AS frontend-build
 WORKDIR /app
 COPY frontend/package*.json ./
 
+# Clear npm cache and install dependencies
+RUN npm cache clean --force
+RUN rm -rf node_modules package-lock.json 2>/dev/null || true
+
 # Use npm install instead of npm ci to fix lock file issues
 RUN npm install
+
+# Install platform-specific Rollup dependencies explicitly
+RUN npm install @rollup/rollup-linux-x64-gnu --save-dev
+
 
 COPY frontend/ .
 RUN npm run build
