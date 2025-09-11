@@ -15,8 +15,8 @@ FROM node:18-alpine AS frontend-build
 WORKDIR /app
 COPY frontend/package*.json ./
 
-# Install with legacy peer deps to fix React 19 conflicts
-RUN npm ci --legacy-peer-deps --omit=dev
+# Install dependencies
+RUN npm ci --omit=dev
 
 COPY frontend/ .
 RUN npm run build
