@@ -10,13 +10,13 @@ RUN mvn clean package -DskipTests
 RUN ls -la target/
 
 # Build frontend with dependency fix
-FROM node:18-alpine AS frontend-build
+FROM node:20-alpine AS frontend-build
 
 WORKDIR /app
 COPY frontend/package*.json ./
 
-# Install dependencies
-RUN npm ci --omit=dev
+# Use npm install instead of npm ci to fix lock file issues
+RUN npm install --omit=dev
 
 COPY frontend/ .
 RUN npm run build
