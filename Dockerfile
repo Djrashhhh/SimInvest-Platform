@@ -9,12 +9,15 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 RUN ls -la target/
 
-# Build frontend
+# Build frontend with dependency fix
 FROM node:18-alpine AS frontend-build
 
 WORKDIR /app
 COPY frontend/package*.json ./
-RUN npm ci --omit=dev
+
+# Install with legacy peer deps to fix React 19 conflicts
+RUN npm ci --legacy-peer-deps --omit=dev
+
 COPY frontend/ .
 RUN npm run build
 RUN ls -la dist/
