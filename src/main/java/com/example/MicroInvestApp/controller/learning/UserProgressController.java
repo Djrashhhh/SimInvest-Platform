@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.controller.learning;
+/*package com.example.MicroInvestApp.controller.learning;
 
 import com.example.MicroInvestApp.domain.enums.ProgressStatus;
 import com.example.MicroInvestApp.dto.edcontent.ProgressUpdateRequestDTO;
@@ -24,10 +24,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-/**
- * REST Controller for User Progress operations
- * Handles all user progress tracking-related HTTP requests
- */
+
 @RestController
 @RequestMapping("/api/v1/user-progress")
 @Tag(name = "User Progress Management", description = "APIs for managing user learning progress")
@@ -442,3 +439,5 @@ public class UserProgressController {
         return ResponseEntity.ok(Map.of("averageRating", averageRating));
     }
 }
+
+ */

@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.impl.learning;
+/*package com.example.MicroInvestApp.impl.learning;
 
 import com.example.MicroInvestApp.domain.enums.ProgressStatus;
 import com.example.MicroInvestApp.domain.learning.EducationalContent;
@@ -26,10 +26,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Implementation of UserProgressService
- * Handles all user progress-related business logic
- */
+
 @Service
 @Transactional
 public class UserProgressServiceImpl implements UserProgressService {
@@ -419,3 +416,5 @@ public class UserProgressServiceImpl implements UserProgressService {
         return diffInDays == 1;
     }
 }
+
+ */

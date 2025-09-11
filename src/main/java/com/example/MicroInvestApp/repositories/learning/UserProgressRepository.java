@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.repositories.learning;
+/*package com.example.MicroInvestApp.repositories.learning;
 
 import com.example.MicroInvestApp.domain.enums.ProgressStatus;
 import com.example.MicroInvestApp.domain.learning.EducationalContent;
@@ -13,10 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Repository interface for UserProgress entity operations
- * Provides CRUD operations and custom queries for user progress tracking
- */
+
 @Repository
 public interface UserProgressRepository extends JpaRepository<UserProgress, Long> {
 
@@ -200,3 +197,4 @@ public interface UserProgressRepository extends JpaRepository<UserProgress, Long
     @Query("DELETE FROM UserProgress up WHERE up.userAccount.userId = :userId")
     int deleteByUserId(@Param("userId") Long userId);
 }
+*/
