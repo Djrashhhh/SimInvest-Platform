@@ -1,4 +1,5 @@
-FROM maven:3.9-openjdk-21-slim AS backend-build
+# Use more reliable base images
+FROM maven:3.9-eclipse-temurin-21 AS backend-build
 
 WORKDIR /app
 COPY pom.xml .
@@ -13,13 +14,28 @@ RUN npm ci
 COPY frontend/ .
 RUN npm run build
 
-FROM openjdk:21-jre-slim
+# Use Eclipse Temurin instead of openjdk
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
+
+# Copy the built JAR file
 COPY --from=backend-build /app/target/*.war app.war
+
+# Copy the built frontend
 COPY --from=frontend-build /app/dist /app/static
+
+# Create a non-root user for security
+RUN addgroup -g 1001 -S spring && \
+    adduser -S spring -u 1001
+
+# Change ownership of the app directory
+RUN chown -R spring:spring /app
+USER spring
 
 EXPOSE 8080
 
 ENV SPRING_PROFILES_ACTIVE=prod
-CMD ["java", "-jar", "app.war", "--server.port=8080"]
+ENV JAVA_OPTS="-Xmx512m -Xms256m"
+
+CMD ["sh", "-c", "java $JAVA_OPTS -jar app.war --server.port=8080"]
