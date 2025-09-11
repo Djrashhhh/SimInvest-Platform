@@ -19,8 +19,8 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-# Copy the built JAR file
-COPY --from=backend-build /app/target/*.war app.war
+# Copy the built JAR/WAR file
+COPY --from=backend-build /app/target/MicroInvestApp-0.0.1-SNAPSHOT.war app.war
 
 # Copy the built frontend
 COPY --from=frontend-build /app/dist /app/static
