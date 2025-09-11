@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 
 @SuppressWarnings({ "serial", "deprecation",  })
 @Entity
-@Table(name = "UserProgress")
+@Table(name = "user_progress")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -36,7 +36,7 @@ public class UserProgress implements Serializable {
     private UserAccount userAccount; // The user whose progress is being tracked
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ed_content_id", nullable = false)
+    @JoinColumn(name = "ed_content_id", referencedColumnName = "ed_content_id")
     private EducationalContent educationalContent; // The educational content being tracked
 
     @CreationTimestamp

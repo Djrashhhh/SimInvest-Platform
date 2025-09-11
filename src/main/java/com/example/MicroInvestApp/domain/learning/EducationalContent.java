@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 
 @SuppressWarnings({ "serial", "deprecation",  })
 @Entity
-@Table(name = "EdContent", indexes = {
+@Table(name = "ed_content", indexes = {
         @Index(name = "idx_content_type", columnList = "content_type"),
         @Index(name = "idx_difficulty", columnList = "content_difficulty"),
         @Index(name = "idx_published", columnList = "published_at")
