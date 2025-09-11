@@ -162,25 +162,38 @@ SimInvest is designed for investors, students, and financial enthusiasts to prac
 ## 📸 Screenshots
 
 ### Login Page
-frontend/public/images/login.png
+![Login Page](frontend/public/images/login.png)
+
+### Register Page  
+![Register Page](frontend/public/images/register.png)
 
 ### Dashboard  
-*[Add dashboard screenshot here]*
+![Dashboard](frontend/public/images/dashboard.png)
 
 ### Trading Page
-*[Add trading page screenshot here]*
+![Trading Page](frontend/public/images/orders.png)
+![Trading Page](frontend/public/images/transactions.png)
 
 ### Portfolio Management
-*[Add portfolio page screenshot here]*
+![Portfolio Page](frontend/public/images/portfolio1.png)
+![Portfolio Page](frontend/public/images/portfolio2.png)
+
+### Market Page
+![Market Page](frontend/public/images/market1.png)
+![Market Page](frontend/public/images/market2.png)
+![Market Page](frontend/public/images/market3.png)
 
 ### Market News
-*[Add news page screenshot here]*
+![News Page](frontend/public/images/news.png)
 
 ### Watchlist
-*[Add watchlist page screenshot here]*
+![Watchlist Page](frontend/public/images/watchlist-page.png)
+
+### User Profile
+![User Profile](frontend/public/images/profile.png)
 
 ### Educational Resources
-*[Add educational content page screenshot here]*
+![Educational Content Page](frontend/public/images/edcontent.png)
 
 ---
 
