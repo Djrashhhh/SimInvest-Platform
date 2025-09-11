@@ -16,7 +16,7 @@ WORKDIR /app
 COPY frontend/package*.json ./
 
 # Use npm install instead of npm ci to fix lock file issues
-RUN npm install --omit=dev
+RUN npm install
 
 COPY frontend/ .
 RUN npm run build
