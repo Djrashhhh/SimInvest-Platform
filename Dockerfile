@@ -10,7 +10,7 @@ RUN mvn clean package -DskipTests
 RUN ls -la target/
 
 # Build frontend with dependency fix
-FROM node:20-alpine AS frontend-build
+FROM node:20 AS frontend-build
 
 WORKDIR /app
 COPY frontend/package*.json ./
