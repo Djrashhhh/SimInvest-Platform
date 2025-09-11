@@ -36,7 +36,8 @@ public class UserProgress implements Serializable {
     private UserAccount userAccount; // The user whose progress is being tracked
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ed_content_id", referencedColumnName = "ed_content_id")
+    @JoinColumn(name = "ed_content_id", nullable = false,
+            foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private EducationalContent educationalContent; // The educational content being tracked
 
     @CreationTimestamp
