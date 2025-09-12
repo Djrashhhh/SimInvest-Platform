@@ -101,9 +101,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // FOR FRONTEND ACCESS:
-                        .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
-                        .requestMatchers("/static/**", "/assets/**").permitAll()
-                        .requestMatchers("/*.js", "/*.css", "/*.map", "/*.ico", "/*.png", "/*.svg").permitAll()
+                        .requestMatchers(
+                                "/", "/index.html", "/favicon.ico",
+                                "/static/**", "/assets/**",
+                                "/*.js", "/*.css", "/*.map", "/*.ico", "/*.png", "/*.svg",
+                                "/css/**", "/js/**", "/images/**"
+                        ).permitAll()
 
 
                         // Public endpoints (no authentication required)
