@@ -21,13 +21,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-/**
- * Security Configuration with JWT Authentication
- * Configures Spring Security for JWT-based stateless authentication
- */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true) // Enable method-level security with @PreAuthorize annotations
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
@@ -44,13 +40,12 @@ public class SecurityConfig {
     }
 
     /**
-     * CORS Configuration Bean - This will be used by Spring Security
+     * CORS configuration.
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // ✅ Use allowedOriginPatterns instead of allowedOrigins with credentials
         configuration.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:3000",
                 "http://localhost:5173",
@@ -67,7 +62,6 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
-        // Add explicit exposed headers if needed
         configuration.setExposedHeaders(Arrays.asList(
                 "Authorization",
                 "Cache-Control",
@@ -80,79 +74,49 @@ public class SecurityConfig {
     }
 
     /**
-     * Configure HTTP Security with JWT authentication
+     * HTTP security configuration.
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // ✅ Use our custom CORS configuration instead of defaults
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-                // Disable CSRF for stateless API
                 .csrf(csrf -> csrf.disable())
-
-                // Configure session management for stateless API
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                // Configure authorization rules
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
-                        // ✅ Allow OPTIONS requests for CORS preflight
+                        // Allow OPTIONS preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Public endpoints (no authentication required)
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/test/public").permitAll()
-                        .requestMatchers("/api/v1/securities/test").permitAll()
-                        .requestMatchers("/api/v1/securities/test-cors").permitAll()
-
-                        // Market data endpoints
-                        .requestMatchers("/api/v1/market-data/market-status").permitAll()
-                        .requestMatchers("/api/v1/market-data/health").permitAll()
-
-                        // Swagger/OpenAPI endpoints
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-
-                        // Health check endpoints
-                        .requestMatchers("/actuator/health").permitAll()
-
-                        // Static resources
+                        // Public frontend assets
+                        .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
+                        .requestMatchers("/static/**", "/assets/**").permitAll()
+                        .requestMatchers("/*.js", "/*.css", "/*.map", "/*.ico", "/*.png", "/*.svg").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 
-                        // Admin endpoints (require ADMIN role)
+                        // Public APIs
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/test/public").permitAll()
+
+                        // Health + Swagger
+                        .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+
+                        // Protected APIs
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-
-                        // Order and Transaction endpoints
-                        .requestMatchers("/api/v1/orders/**").authenticated()
-                        .requestMatchers("/api/v1/transactions/**").authenticated()
-
-                        //News endpoints
-                        .requestMatchers("/api/v1/news/**").authenticated()
-
-                        // All other API endpoints require authentication
                         .requestMatchers("/api/**").authenticated()
 
-                        // Web pages authentication
+                        // Everything else requires authentication
                         .anyRequest().authenticated()
                 );
 
-        // Add JWT authentication filter before UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
-    /**
-     * Authentication Manager Bean
-     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
-    /**
-     * DAO Authentication Provider
-     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
