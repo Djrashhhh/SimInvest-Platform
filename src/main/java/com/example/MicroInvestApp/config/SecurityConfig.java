@@ -100,6 +100,12 @@ public class SecurityConfig {
                         // ✅ Allow OPTIONS requests for CORS preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                        // FOR FRONTEND ACCESS:
+                        .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
+                        .requestMatchers("/static/**", "/assets/**").permitAll()
+                        .requestMatchers("/*.js", "/*.css", "/*.map", "/*.ico", "/*.png", "/*.svg").permitAll()
+
+
                         // Public endpoints (no authentication required)
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/test/public").permitAll()
