@@ -1,51 +1,18 @@
-# Build backend
-FROM maven:3.9-eclipse-temurin-21 AS backend-build
+FROM maven:3.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Build and list the target directory for debugging
 RUN mvn clean package -DskipTests
-RUN ls -la target/
 
-# Build frontend with dependency fix
-FROM node:20 AS frontend-build
-
-WORKDIR /app
-COPY package*.json ./
-
-# Clear npm cache and install dependencies
-RUN npm cache clean --force
-RUN rm -rf node_modules package-lock.json 2>/dev/null || true
-
-# Use npm install instead of npm ci to fix lock file issues
-RUN npm install
-
-# Install platform-specific Rollup dependencies explicitly
-RUN npm install @rollup/rollup-linux-x64-gnu --save-dev
-
-
-COPY frontend/ .
-RUN npm run build
-RUN ls -la dist/
-
-# Runtime image
 FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
+COPY --from=build /app/target/*.war app.war
 
-# Copy any .war file from target directory
-COPY --from=backend-build /app/target/*.war app.war
-
-# Copy the built frontend
-COPY --from=frontend-build /app/dist ./static
-
-# Create non-root user
 RUN addgroup -g 1001 -S spring && \
     adduser -S spring -u 1001 -G spring
-
-# Set ownership and switch to non-root user
 RUN chown -R spring:spring /app
 USER spring
 
