@@ -45,6 +45,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+
+        // Skip JWT processing for public endpoints
+        if (path.equals("/") ||
+                path.equals("/index.html") ||
+                path.equals("/favicon.ico") ||
+                path.startsWith("/static/") ||
+                path.startsWith("/assets/") ||
+                path.startsWith("/api/v1/auth/") ||
+                path.equals("/actuator/health")) {
+
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try {
             // Extract JWT token from request
             String jwt = getJwtFromRequest(request);
@@ -82,6 +97,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Continue with the filter chain
         filterChain.doFilter(request, response);
     }
+
 
     /**
      * Extract JWT token from the Authorization header
