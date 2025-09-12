@@ -26,8 +26,11 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
-          router: ["react-router-dom"],
-          ui: ["lucide-react", "@radix-ui/react-dialog"],
+          // Only include packages you actually have installed
+          ...(process.env.NODE_ENV === 'production' && {
+            router: ["react-router-dom"],
+            ui: ["lucide-react"],
+          })
         },
       },
     },
