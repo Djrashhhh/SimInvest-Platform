@@ -1,5 +1,5 @@
 // Complete portfolioService.ts with all necessary methods
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 export interface Portfolio {
   portfolio_id: number;
@@ -38,7 +38,7 @@ class PortfolioService {
     try {
       console.log(`Fetching portfolio for user ${userId}...`);
       
-      const response = await fetch(`${API_BASE_URL}/portfolios/user/${userId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/portfolios/user/${userId}`, {
         method: "GET",
         headers: this.getAuthHeaders(),
       });
@@ -66,7 +66,7 @@ class PortfolioService {
   // Get user's active portfolio - MATCHES your backend endpoint  
   async getActivePortfolioByUserId(userId: number): Promise<Portfolio | null> {
     try {
-      const response = await fetch(`${API_BASE_URL}/portfolios/user/${userId}/active`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/portfolios/user/${userId}/active`, {
         method: "GET",
         headers: this.getAuthHeaders(),
       });
@@ -89,7 +89,7 @@ class PortfolioService {
   // Check if user has active portfolio - MATCHES your backend endpoint
   async hasActivePortfolio(userId: number): Promise<{ hasActivePortfolio: boolean }> {
     try {
-      const response = await fetch(`${API_BASE_URL}/portfolios/user/${userId}/has-active`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/portfolios/user/${userId}/has-active`, {
         method: "GET",
         headers: this.getAuthHeaders(),
       });
@@ -110,7 +110,7 @@ class PortfolioService {
     try {
       console.log('Creating portfolio for user:', userId, 'with data:', portfolioData);
       
-      const response = await fetch(`${API_BASE_URL}/portfolios?userId=${userId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/portfolios?userId=${userId}`, {
         method: "POST",
         headers: this.getAuthHeaders(),
         body: JSON.stringify(portfolioData),
@@ -133,7 +133,7 @@ class PortfolioService {
 
   // Add cash to portfolio - MATCHES your backend endpoint
   async addCash(portfolioId: number, amount: number): Promise<Portfolio> {
-    const response = await fetch(`${API_BASE_URL}/portfolios/${portfolioId}/cash/add?amount=${amount}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/portfolios/${portfolioId}/cash/add?amount=${amount}`, {
       method: "POST",
       headers: this.getAuthHeaders(),
     });
@@ -147,7 +147,7 @@ class PortfolioService {
 
   // Withdraw cash from portfolio - MATCHES your backend endpoint
   async withdrawCash(portfolioId: number, amount: number): Promise<Portfolio> {
-    const response = await fetch(`${API_BASE_URL}/portfolios/${portfolioId}/cash/withdraw?amount=${amount}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/portfolios/${portfolioId}/cash/withdraw?amount=${amount}`, {
       method: "POST",
       headers: this.getAuthHeaders(),
     });
@@ -161,7 +161,7 @@ class PortfolioService {
 
   // Get portfolio summary - MATCHES your backend endpoint
   async getPortfolioSummary(portfolioId: number): Promise<any> {
-    const response = await fetch(`${API_BASE_URL}/portfolios/${portfolioId}/summary`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/portfolios/${portfolioId}/summary`, {
       method: "GET",
       headers: this.getAuthHeaders(),
     });
@@ -178,7 +178,7 @@ class PortfolioService {
     try {
       console.log(`Fetching positions for portfolio ${portfolioId}...`);
       
-      const response = await fetch(`${API_BASE_URL}/positions/portfolio/${portfolioId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/positions/portfolio/${portfolioId}`, {
         method: "GET",
         headers: this.getAuthHeaders(),
       });
@@ -211,7 +211,7 @@ class PortfolioService {
   // Refresh portfolio positions - MATCHES your backend endpoint
   async refreshPortfolioPositions(portfolioId: number): Promise<void> {
     try {
-      const response = await fetch(`${API_BASE_URL}/positions/portfolio/${portfolioId}/refresh`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/positions/portfolio/${portfolioId}/refresh`, {
         method: "POST",
         headers: this.getAuthHeaders(),
       });

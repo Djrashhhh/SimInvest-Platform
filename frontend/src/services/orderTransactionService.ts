@@ -14,7 +14,7 @@ import type {
   CostBasisInfo,
 } from "../types/orders";
 
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 // Helper function to get auth token
 const getAuthToken = (): string | null => {
@@ -44,7 +44,7 @@ class OrderTransactionService {
       console.log("Fetching portfolio for user:", user_id);
 
       const response = await fetch(
-        `${API_BASE_URL}/portfolios/user/${user_id}`,
+        `${API_BASE_URL}/api/v1/portfolios/user/${user_id}`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -76,7 +76,7 @@ class OrderTransactionService {
       console.log("Fetching portfolio summary for:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/portfolios/${portfolioId}/summary`,
+        `${API_BASE_URL}/api/v1/portfolios/${portfolioId}/summary`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -105,7 +105,7 @@ class OrderTransactionService {
       console.log("Checking if user has active portfolio:", user_id);
 
       const response = await fetch(
-        `${API_BASE_URL}/portfolios/user/${user_id}/has-active`,
+        `${API_BASE_URL}/api/v1/portfolios/user/${user_id}/has-active`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -148,7 +148,7 @@ class OrderTransactionService {
     try {
       console.log("Creating order:", orderRequest);
 
-      const response = await fetch(`${API_BASE_URL}/orders`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/orders`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(orderRequest),
@@ -185,7 +185,7 @@ class OrderTransactionService {
       console.log("Fetching orders for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/orders/portfolio/${portfolioId}`,
+        `${API_BASE_URL}/api/v1/orders/portfolio/${portfolioId}`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -214,7 +214,7 @@ class OrderTransactionService {
       console.log("Fetching active orders for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/orders/portfolio/${portfolioId}/active`,
+        `${API_BASE_URL}/api/v1/orders/portfolio/${portfolioId}/active`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -243,7 +243,7 @@ class OrderTransactionService {
     try {
       console.log("Cancelling order:", orderId, "Reason:", reason);
 
-      const response = await fetch(`${API_BASE_URL}/orders/${orderId}/cancel`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/orders/${orderId}/cancel`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({ reason: reason || "Cancelled by user" }),
@@ -280,7 +280,7 @@ class OrderTransactionService {
       console.log("Executing order:", orderId);
 
       const response = await fetch(
-        `${API_BASE_URL}/orders/${orderId}/execute`,
+        `${API_BASE_URL}/api/v1/orders/${orderId}/execute`,
         {
           method: "POST",
           headers: getAuthHeaders(),
@@ -319,7 +319,7 @@ class OrderTransactionService {
     try {
       console.log("Validating order:", orderRequest);
 
-      const response = await fetch(`${API_BASE_URL}/orders/validate`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/orders/validate`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(orderRequest),
@@ -360,7 +360,7 @@ class OrderTransactionService {
       console.log("Fetching transactions for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/transactions/portfolio/${portfolioId}`,
+        `${API_BASE_URL}/api/v1/transactions/portfolio/${portfolioId}`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -389,7 +389,7 @@ class OrderTransactionService {
       console.log("Fetching transactions for order:", orderId);
 
       const response = await fetch(
-        `${API_BASE_URL}/transactions/order/${orderId}`,
+        `${API_BASE_URL}/api/v1/transactions/order/${orderId}`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -419,7 +419,7 @@ class OrderTransactionService {
       console.log("Fetching recent transactions for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/transactions/portfolio/${portfolioId}/recent?limit=${limit}`,
+        `${API_BASE_URL}/api/v1/transactions/portfolio/${portfolioId}/recent?limit=${limit}`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -448,7 +448,7 @@ class OrderTransactionService {
       console.log("Fetching transaction analytics for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/transactions/portfolio/${portfolioId}/analytics`,
+        `${API_BASE_URL}/api/v1/transactions/portfolio/${portfolioId}/analytics`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -478,7 +478,7 @@ class OrderTransactionService {
       console.log("Fetching cost basis info for:", portfolioId, stockSymbol);
 
       const response = await fetch(
-        `${API_BASE_URL}/transactions/portfolio/${portfolioId}/security/${stockSymbol}/cost-basis`,
+        `${API_BASE_URL}/api/v1/transactions/portfolio/${portfolioId}/security/${stockSymbol}/cost-basis`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -505,7 +505,7 @@ class OrderTransactionService {
       console.log("Fetching order stats for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/orders/portfolio/${portfolioId}/stats`,
+        `${API_BASE_URL}/api/v1/orders/portfolio/${portfolioId}/stats`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -531,7 +531,7 @@ class OrderTransactionService {
       console.log("Fetching positions for portfolio:", portfolioId);
 
       const response = await fetch(
-        `${API_BASE_URL}/positions/portfolio/${portfolioId}`,
+        `${API_BASE_URL}/api/v1/positions/portfolio/${portfolioId}`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -673,7 +673,7 @@ class OrderTransactionService {
    */
   async healthCheck(): Promise<boolean> {
     try {
-      const response = await fetch(`${API_BASE_URL}/orders/health`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/orders/health`, {
         method: "GET",
         headers: getAuthHeaders(),
       });

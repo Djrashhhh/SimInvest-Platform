@@ -19,7 +19,7 @@ export interface NewsCategory {
 }
 
 class NewsService {
-  private readonly API_BASE_URL = "http://localhost:8080/api/v1";
+  private readonly API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
   private getAuthHeaders(): HeadersInit {
     const token = localStorage.getItem("microinvest_token");
@@ -39,7 +39,7 @@ class NewsService {
     category: string = "general",
     limit: number = 20
   ): Promise<NewsArticle[]> {
-    const url = `${this.API_BASE_URL}/news?category=${encodeURIComponent(category)}&limit=${limit}`;
+    const url = `${this.API_BASE_URL}/api/v1/news?category=${encodeURIComponent(category)}&limit=${limit}`;
     console.log("📰 Fetching market news...");
     console.log("📰 URL:", url);
     console.log("📰 Category:", category);
@@ -83,7 +83,7 @@ class NewsService {
    * Get top business headlines
    */
   async getTopBusinessNews(limit: number = 20): Promise<NewsArticle[]> {
-    const url = `${this.API_BASE_URL}/news/headlines?limit=${limit}`;
+    const url = `${this.API_BASE_URL}/api/v1/news/headlines?limit=${limit}`;
     console.log("📈 Fetching business headlines...");
     console.log("📈 URL:", url);
 
@@ -120,7 +120,7 @@ class NewsService {
     searchTerm: string,
     limit: number = 20
   ): Promise<NewsArticle[]> {
-    const url = `${this.API_BASE_URL}/news/search?q=${encodeURIComponent(searchTerm)}&limit=${limit}`;
+    const url = `${this.API_BASE_URL}/api/v1/news/search?q=${encodeURIComponent(searchTerm)}&limit=${limit}`;
     console.log("🔍 Searching news...");
     console.log("🔍 URL:", url);
 
@@ -154,7 +154,7 @@ class NewsService {
    * Get available news categories
    */
   async getNewsCategories(): Promise<NewsCategory[]> {
-    const url = `${this.API_BASE_URL}/news/categories`;
+    const url = `${this.API_BASE_URL}/api/v1/news/categories`;
     console.log("📂 Fetching categories...");
     console.log("📂 URL:", url);
 
@@ -208,7 +208,7 @@ class NewsService {
     console.log("🧪 Testing news API connection...");
 
     try {
-      const response = await fetch(`${this.API_BASE_URL}/news/categories`, {
+      const response = await fetch(`${this.API_BASE_URL}/api/v1/news/categories`, {
         method: "GET",
         headers: this.getAuthHeaders(),
       });

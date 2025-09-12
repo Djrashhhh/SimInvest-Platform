@@ -1,5 +1,5 @@
 // userService.ts
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 // Types based on your DTOs - FIXED to match Java enums exactly
 export type ExperienceLevel = "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
@@ -98,7 +98,7 @@ class UserService {
 
   // Get current user account details
   async getUserAccount(): Promise<UserAccountDetails> {
-    const response = await fetch(`${API_BASE_URL}/users/account`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/account`, {
       method: "GET",
       headers: this.getAuthHeaders(),
     });
@@ -113,7 +113,7 @@ class UserService {
   // Get user by username (if needed by backend)
   async getUserByUsername(username: string): Promise<UserAccountDetails> {
     const response = await fetch(
-      `${API_BASE_URL}/users/profile?username=${encodeURIComponent(username)}`,
+      `${API_BASE_URL}/api/v1/users/profile?username=${encodeURIComponent(username)}`,
       {
         method: "GET",
         headers: this.getAuthHeaders(),
@@ -131,7 +131,7 @@ class UserService {
     userId: number,
     updateData: UserUpdateRequest
   ): Promise<UserAccountDetails> {
-    const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/${userId}`, {
       method: "PUT",
       headers: this.getAuthHeaders(),
       body: JSON.stringify(updateData),
@@ -146,7 +146,7 @@ class UserService {
 
   // FIXED: Use the correct endpoint that matches your backend controller
   async getUserProfile(userId: number): Promise<UserProfile> {
-    const response = await fetch(`${API_BASE_URL}/users/${userId}/profile`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/${userId}/profile`, {
       method: "GET",
       headers: this.getAuthHeaders(),
     });
@@ -166,7 +166,7 @@ class UserService {
     userId: number,
     profileData: UserProfileUpdateRequest
   ): Promise<UserProfile> {
-    const response = await fetch(`${API_BASE_URL}/users/${userId}/profile`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/${userId}/profile`, {
       method: "POST",
       headers: this.getAuthHeaders(),
       body: JSON.stringify(profileData), // Don't include user_id in body, it's in the URL path
@@ -187,7 +187,7 @@ class UserService {
     userId: number,
     profileData: UserProfileUpdateRequest
   ): Promise<UserProfile> {
-    const response = await fetch(`${API_BASE_URL}/users/${userId}/profile`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/${userId}/profile`, {
       method: "PUT",
       headers: this.getAuthHeaders(),
       body: JSON.stringify(profileData),
@@ -205,7 +205,7 @@ class UserService {
 
   async incrementLearningProgress(userId: number): Promise<void> {
     const response = await fetch(
-      `${API_BASE_URL}/users/${userId}/profile/learning/increment`,
+      `${API_BASE_URL}/api/v1/users/${userId}/profile/learning/increment`,
       {
         method: "POST",
         headers: this.getAuthHeaders(),
@@ -221,7 +221,7 @@ class UserService {
 
   async checkEmailAvailability(email: string): Promise<boolean> {
     const response = await fetch(
-      `${API_BASE_URL}/users/check-email?email=${encodeURIComponent(email)}`,
+      `${API_BASE_URL}/api/v1/users/check-email?email=${encodeURIComponent(email)}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -238,7 +238,7 @@ class UserService {
 
   async checkUsernameAvailability(username: string): Promise<boolean> {
     const response = await fetch(
-      `${API_BASE_URL}/users/check-username?username=${encodeURIComponent(username)}`,
+      `${API_BASE_URL}/api/v1/users/check-username?username=${encodeURIComponent(username)}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -257,7 +257,7 @@ class UserService {
 
   async verifyEmail(userId: number): Promise<void> {
     const response = await fetch(
-      `${API_BASE_URL}/users/${userId}/verify-email`,
+      `${API_BASE_URL}/api/v1/users/${userId}/verify-email`,
       {
         method: "POST",
         headers: this.getAuthHeaders(),

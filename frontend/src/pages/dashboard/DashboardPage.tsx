@@ -100,7 +100,7 @@ const DashboardPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Get the base API URL
-  const API_BASE_URL = "http://localhost:8080/api/v1";
+     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
   // Function to get auth token
   const getAuthToken = () => {
@@ -131,7 +131,7 @@ const DashboardPage = () => {
       );
 
       // FIXED: Using the correct endpoint from UserAccountController
-      const response = await fetch(`${API_BASE_URL}/users/account`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/users/account`, {
         method: "GET",
         headers: getAuthHeaders(),
       });
@@ -169,7 +169,7 @@ const DashboardPage = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/users/${userDetails.user_id}/profile`,
+        `${API_BASE_URL}/api/v1/users/${userDetails.user_id}/profile`,
         {
           method: "GET",
           headers: getAuthHeaders(),
@@ -209,7 +209,7 @@ const DashboardPage = () => {
 
       // FIXED: Use the correct endpoint that exists in your controller
       const response = await fetch(
-        `${API_BASE_URL}/portfolios/user/${userDetails.user_id}`, // <- Changed this line
+        `${API_BASE_URL}/api/v1/portfolios/user/${userDetails.user_id}`, // <- Changed this line
         {
           method: "GET",
           headers: getAuthHeaders(),

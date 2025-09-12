@@ -1,6 +1,6 @@
 // services/balanceService.ts to fetch and combine user account and portfolio balance data and update the values
 
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 interface CombinedBalanceData {
   user_account: {
@@ -40,7 +40,7 @@ class BalanceService {
   async getCombinedBalanceData(userId: number): Promise<CombinedBalanceData> {
     try {
       // Fetch user account data
-      const userResponse = await fetch(`${API_BASE_URL}/users/account`, {
+      const userResponse = await fetch(`${API_BASE_URL}/api/v1/users/account`, {
         method: "GET",
         headers: this.getAuthHeaders(),
       });
@@ -50,7 +50,7 @@ class BalanceService {
       // Try to fetch portfolio data
       let portfolioData = null;
       try {
-        const portfolioResponse = await fetch(`${API_BASE_URL}/portfolios/user/${userId}`, {
+        const portfolioResponse = await fetch(`${API_BASE_URL}/api/v1/portfolios/user/${userId}`, {
           method: "GET",
           headers: this.getAuthHeaders(),
         });
