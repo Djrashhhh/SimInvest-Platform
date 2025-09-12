@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.dto.edcontent;
+/*package com.example.MicroInvestApp.dto.edcontent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -46,3 +46,4 @@ public class UserProgressDTO {
     public LocalDateTime getLastAccessedAt() { return lastAccessedAt; }
     public void setLastAccessedAt(LocalDateTime lastAccessedAt) { this.lastAccessedAt = lastAccessedAt; }
 }
+*/

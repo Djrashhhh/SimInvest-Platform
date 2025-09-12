@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.dto.edcontent;
+/*package com.example.MicroInvestApp.dto.edcontent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,3 +29,4 @@ public class ProgressUpdateRequestDTO {
     public void setUserRating(Integer userRating) { this.userRating = userRating; }
 
 }
+*/

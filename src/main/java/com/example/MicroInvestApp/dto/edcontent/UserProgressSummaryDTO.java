@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.dto.edcontent;
+/*package com.example.MicroInvestApp.dto.edcontent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -47,3 +47,4 @@ public class UserProgressSummaryDTO {
     public Map<String, Long> getStatusCounts() { return statusCounts; }
     public void setStatusCounts(Map<String, Long> statusCounts) { this.statusCounts = statusCounts; }
 }
+*/

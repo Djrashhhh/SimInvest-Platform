@@ -1,4 +1,4 @@
-package com.example.MicroInvestApp.domain.learning;
+/*package com.example.MicroInvestApp.domain.learning;
 
 import com.example.MicroInvestApp.domain.enums.ProgressStatus;
 import com.example.MicroInvestApp.domain.user.UserAccount;
@@ -170,3 +170,4 @@ public class UserProgress implements Serializable {
 
 
 }
+*/

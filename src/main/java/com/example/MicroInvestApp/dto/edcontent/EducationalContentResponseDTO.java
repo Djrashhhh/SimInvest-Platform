@@ -52,8 +52,8 @@ public class EducationalContentResponseDTO {
     @JsonProperty("rating")
     private Double rating;
 
-    @JsonProperty("user_progress")
-    private UserProgressDTO userProgress;
+//    @JsonProperty("user_progress")
+//    private UserProgressDTO userProgress;
 
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
@@ -110,8 +110,8 @@ public class EducationalContentResponseDTO {
     public Double getRating() { return rating; }
     public void setRating(Double rating) { this.rating = rating; }
 
-    public UserProgressDTO getUserProgress() { return userProgress; }
-    public void setUserProgress(UserProgressDTO userProgress) { this.userProgress = userProgress; }
+//    public UserProgressDTO getUserProgress() { return userProgress; }
+//    public void setUserProgress(UserProgressDTO userProgress) { this.userProgress = userProgress; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
