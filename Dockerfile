@@ -13,7 +13,7 @@ RUN ls -la target/
 FROM node:20 AS frontend-build
 
 WORKDIR /app
-COPY frontend/package*.json ./
+COPY package*.json ./
 
 # Clear npm cache and install dependencies
 RUN npm cache clean --force
