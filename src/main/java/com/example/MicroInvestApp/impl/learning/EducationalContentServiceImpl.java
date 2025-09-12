@@ -7,11 +7,9 @@ import com.example.MicroInvestApp.domain.learning.EducationalContent;
 import com.example.MicroInvestApp.dto.edcontent.CreateEducationalContentRequestDTO;
 import com.example.MicroInvestApp.dto.edcontent.EducationalContentResponseDTO;
 import com.example.MicroInvestApp.dto.edcontent.UpdateEducationalContentRequestDTO;
-import com.example.MicroInvestApp.dto.edcontent.UserProgressDTO;
 import com.example.MicroInvestApp.exception.learning.ContentNotFoundException;
 import com.example.MicroInvestApp.repositories.learning.EducationalContentRepository;
 import com.example.MicroInvestApp.service.learning.EducationalContentService;
-import com.example.MicroInvestApp.service.learning.UserProgressService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,15 +34,15 @@ public class EducationalContentServiceImpl implements EducationalContentService 
     private static final Logger logger = LoggerFactory.getLogger(EducationalContentServiceImpl.class);
 
     private final EducationalContentRepository contentRepository;
-    private final UserProgressService userProgressService;
+
     private final ObjectMapper objectMapper;
 
     @Autowired
     public EducationalContentServiceImpl(EducationalContentRepository contentRepository,
-                                         UserProgressService userProgressService,
+
                                          ObjectMapper objectMapper) {
         this.contentRepository = contentRepository;
-        this.userProgressService = userProgressService;
+
         this.objectMapper = objectMapper;
     }
 
@@ -97,13 +95,18 @@ public class EducationalContentServiceImpl implements EducationalContentService 
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<EducationalContentResponseDTO> getContentByIdWithProgress(Long contentId, Long userId) {
-        logger.debug("Fetching educational content by ID: {} with progress for user: {}", contentId, userId);
-
-        return contentRepository.findById(contentId)
-                .map(content -> convertToResponseDTOWithProgress(content, userId));
+        return Optional.empty();
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Optional<EducationalContentResponseDTO> getContentByIdWithProgress(Long contentId, Long userId) {
+//        logger.debug("Fetching educational content by ID: {} with progress for user: {}", contentId, userId);
+//
+//        return contentRepository.findById(contentId)
+//                .map(content -> convertToResponseDTOWithProgress(content, userId));
+//    }
 
     @Override
     public EducationalContentResponseDTO updateContent(Long contentId, UpdateEducationalContentRequestDTO request) {
@@ -186,15 +189,20 @@ public class EducationalContentServiceImpl implements EducationalContentService 
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<EducationalContentResponseDTO> getAllActiveContentWithProgress(Long userId) {
-        logger.debug("Fetching all active educational content with progress for user: {}", userId);
-
-        return contentRepository.findAllActive()
-                .stream()
-                .map(content -> convertToResponseDTOWithProgress(content, userId))
-                .collect(Collectors.toList());
+        return List.of();
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<EducationalContentResponseDTO> getAllActiveContentWithProgress(Long userId) {
+//        logger.debug("Fetching all active educational content with progress for user: {}", userId);
+//
+//        return contentRepository.findAllActive()
+//                .stream()
+//                .map(content -> convertToResponseDTOWithProgress(content, userId))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -208,15 +216,20 @@ public class EducationalContentServiceImpl implements EducationalContentService 
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<EducationalContentResponseDTO> getContentByCategoryWithProgress(ContentCategory category, Long userId) {
-        logger.debug("Fetching educational content by category: {} with progress for user: {}", category, userId);
-
-        return contentRepository.findByCategory(category.name())
-                .stream()
-                .map(content -> convertToResponseDTOWithProgress(content, userId))
-                .collect(Collectors.toList());
+        return List.of();
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<EducationalContentResponseDTO> getContentByCategoryWithProgress(ContentCategory category, Long userId) {
+//        logger.debug("Fetching educational content by category: {} with progress for user: {}", category, userId);
+//
+//        return contentRepository.findByCategory(category.name())
+//                .stream()
+//                .map(content -> convertToResponseDTOWithProgress(content, userId))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -251,16 +264,16 @@ public class EducationalContentServiceImpl implements EducationalContentService 
                 .collect(Collectors.toList());
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<EducationalContentResponseDTO> getFeaturedContentWithProgress(Long userId) {
-        logger.debug("Fetching featured educational content with progress for user: {}", userId);
-
-        return contentRepository.findFeaturedContent()
-                .stream()
-                .map(content -> convertToResponseDTOWithProgress(content, userId))
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<EducationalContentResponseDTO> getFeaturedContentWithProgress(Long userId) {
+//        logger.debug("Fetching featured educational content with progress for user: {}", userId);
+//
+//        return contentRepository.findFeaturedContent()
+//                .stream()
+//                .map(content -> convertToResponseDTOWithProgress(content, userId))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -443,17 +456,17 @@ public class EducationalContentServiceImpl implements EducationalContentService 
         return dto;
     }
 
-    private EducationalContentResponseDTO convertToResponseDTOWithProgress(EducationalContent content, Long userId) {
-        EducationalContentResponseDTO dto = convertToResponseDTO(content);
-
-        // Get user progress if userId is provided
-        if (userId != null) {
-            Optional<UserProgressDTO> progress = userProgressService.getUserProgress(userId, content.getContentId());
-            progress.ifPresent(dto::setUserProgress);
-        }
-
-        return dto;
-    }
+//    private EducationalContentResponseDTO convertToResponseDTOWithProgress(EducationalContent content, Long userId) {
+//        EducationalContentResponseDTO dto = convertToResponseDTO(content);
+//
+//        // Get user progress if userId is provided
+//        if (userId != null) {
+//            Optional<UserProgressDTO> progress = userProgressService.getUserProgress(userId, content.getContentId());
+//            progress.ifPresent(dto::setUserProgress);
+//        }
+//
+//        return dto;
+//    }
 
     private String convertListToJson(List<?> list) {
         try {

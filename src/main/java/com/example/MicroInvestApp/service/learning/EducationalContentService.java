@@ -111,7 +111,7 @@ public interface EducationalContentService {
      * @param userId the user ID
      * @return List of featured educational content with user progress
      */
-    List<EducationalContentResponseDTO> getFeaturedContentWithProgress(Long userId);
+    //List<EducationalContentResponseDTO> getFeaturedContentWithProgress(Long userId);
 
     /**
      * Search educational content by title

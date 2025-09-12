@@ -271,29 +271,29 @@ public class EducationalContentController {
             @ApiResponse(responseCode = "200", description = "Featured content retrieved successfully"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
-    @GetMapping("/featured")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<EducationalContentResponseDTO>> getFeaturedContent(
-            @Parameter(description = "User ID for progress tracking (optional)")
-            @RequestParam(required = false) Long userId) {
+//    @GetMapping("/featured")
+//    @PreAuthorize("hasRole('USER')")
+//    public ResponseEntity<List<EducationalContentResponseDTO>> getFeaturedContent(
+//            @Parameter(description = "User ID for progress tracking (optional)")
+//            @RequestParam(required = false) Long userId) {
+//
+//        logger.debug("Fetching featured educational content");
+//
+//        List<EducationalContentResponseDTO> content;
+//        if (userId != null) {
+//            content = contentService.getFeaturedContentWithProgress(userId);
+//        } else {
+//            content = contentService.getFeaturedContent();
+//        }
+//
+//        return ResponseEntity.ok(content);
+//    }
 
-        logger.debug("Fetching featured educational content");
-
-        List<EducationalContentResponseDTO> content;
-        if (userId != null) {
-            content = contentService.getFeaturedContentWithProgress(userId);
-        } else {
-            content = contentService.getFeaturedContent();
-        }
-
-        return ResponseEntity.ok(content);
-    }
-
-    @Operation(summary = "Search content by title", description = "Searches educational content by title")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Search completed successfully"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized")
-    })
+//    @Operation(summary = "Search content by title", description = "Searches educational content by title")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Search completed successfully"),
+//            @ApiResponse(responseCode = "401", description = "Unauthorized")
+//    })
     @GetMapping("/search/title")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<EducationalContentResponseDTO>> searchContentByTitle(
