@@ -162,7 +162,7 @@ SimInvest is designed for investors, students, and financial enthusiasts to prac
 ## 📸 Screenshots
 
 ### Login Page
-![Login Page](frontend/public/images/login.png)
+![Login Page](frontend/public/log.jpg)
 
 ### Register Page  
 ![Register Page](frontend/public/images/register.png)
