@@ -1,7 +1,7 @@
 # 📈 SimInvest Platform
 
 A comprehensive full-stack investment simulation and portfolio management system built with Spring Boot and React.js. SimInvest provides users with real-time market data, portfolio tracking, educational resources, and a complete trading simulation experience.
-Website: https://siminvestplatform.netlify.app/login
+
 
 ## 🚀 Tech Stack
 
